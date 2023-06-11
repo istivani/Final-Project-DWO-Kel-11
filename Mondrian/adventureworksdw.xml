@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<Schema name="adventureworksdw">
+    <!--
+      == This software is subject to the terms of the Eclipse Public License v1.0
+      == Agreement, available at the following URL:
+      == http://www.eclipse.org/legal/epl-v10.html.
+      == You must accept the terms of that agreement to use this software.
+      ==
+      == Copyright (C) 2000-2005 Julian Hyde
+      == Copyright (C) 2005-2011 Pentaho and others
+      == All Rights Reserved.
+    -->
+
+    <!-- Shared dimensions -->
+
+
+    <!-- Sales -->
+    <Cube name="Beli" defaultMeasure="jumlah_pembelian">
+    <Table name="faktapembelian">
+    </Table>
+    <Dimension name="Date" foreignKey="id_waktu">
+      <Hierarchy hasAll="true" primaryKey="id_waktu">
+        <Table name="dimwaktu">
+        </Table>
+        <Level name="Year" column="tahun" uniqueMembers="false">
+        </Level>
+        <Level name="Month" column="bulan" uniqueMembers="false">
+        </Level>
+        <Level name="Day" column="tanggal" uniqueMembers="true">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension name="Product" foreignKey="id_produk">
+      <Hierarchy hasAll="true" primaryKey="id_produk">
+        <Table name="dimproduk">
+        </Table>
+        <Level name="Category" column="kategori_produk" uniqueMembers="false">
+        </Level>
+        <Level name="Product Name" column="nama_produk" uniqueMembers="true">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension name="Vendor" foreignKey="id_vendor">
+      <Hierarchy hasAll="true" primaryKey="id_vendor">
+        <Table name="dimvendor">
+        </Table>
+        <Level name="State" column="state" uniqueMembers="false">
+        </Level>
+        <Level name="City" column="kota" uniqueMembers="false">
+        </Level>
+        <Level name="Vendor Name" column="nama_vendor" uniqueMembers="true">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Measure name="Jumlah Pembelian" column="jumlah_pembelian" aggregator="sum">
+    </Measure>
+    <Measure name="Total Harga" column="harga_pembelian" aggregator="sum">
+    </Measure>
+  </Cube>
+</Schema>
